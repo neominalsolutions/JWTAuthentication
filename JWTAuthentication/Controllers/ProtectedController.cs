@@ -10,8 +10,9 @@ namespace JWTAuthentication.Controllers
   public class ProtectedController : ControllerBase
   {
 
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet]
-    [Authorize]
     public IActionResult Protected()
     {
       return Ok("Identity Protected");

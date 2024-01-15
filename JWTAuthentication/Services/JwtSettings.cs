@@ -2,6 +2,6 @@
 {
   public static class JwtSettings
   {
-    public const string SecretKey = "akedas-980989898234234xlklksadxcslsasd-dsadacxzc?saddsa-sadsadsa";
+    public const string SecretKey = "3T4fLeWUnrrrTaLrCBsCu_Xsakchl9P-mBBaR7Pm3zdIioIkhWs6HTHLcOAmVhdppzgovIWvcJUZcP3Ta_JwIw";
   }
 }

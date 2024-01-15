@@ -55,16 +55,16 @@ namespace JWTAuthentication.Controllers
       return Ok();
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Login()
-    {
-      var user = await userManager.FindByNameAsync("akedas");
-      await this.signInManager.SignInAsync(user,true); // Cookie based Authentication
-      // default 20 dk.
-      // formdaki remember me ayarı isPersistent
-      await this.signInManager.SignOutAsync();
+    //[HttpGet]
+    //public async Task<IActionResult> Login()
+    //{
+    //  var user = await userManager.FindByNameAsync("akedas");
+    //  await this.signInManager.SignInAsync(user,true); // Cookie based Authentication
+    //  // default 20 dk.
+    //  // formdaki remember me ayarı isPersistent
+    //  await this.signInManager.SignOutAsync();
 
-      return Ok();
-    }
+    //  return Ok();
+    //}
   }
 }

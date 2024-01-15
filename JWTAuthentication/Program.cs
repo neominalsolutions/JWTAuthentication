@@ -1,6 +1,7 @@
 using JWTAuthentication.Data;
 using JWTAuthentication.Data.Identity;
 using JWTAuthentication.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(
 
   opt => { 
-    opt.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+    opt.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
   }
 
 );
@@ -37,15 +38,16 @@ builder.Services.AddAuthentication(x =>
   x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
   x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 
-}).AddJwtBearer(opt =>
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,opt =>
 {
-  //opt.RequireHttpsMetadata = true;
-  //opt.SaveToken = true;
+  opt.RequireHttpsMetadata = true;
+  opt.SaveToken = true;
   opt.TokenValidationParameters = new TokenValidationParameters
   {
-    ValidateIssuerSigningKey = false,
+    ValidateIssuer = false,
+    ValidateIssuerSigningKey = true,
     IssuerSigningKey = new SymmetricSecurityKey(key),
-    ValidateLifetime = false, // 1 saat boyunca sadece validate et, expire olmuþ tokenlarý validate etmez
+    ValidateLifetime = true, // 1 saat boyunca sadece validate et, expire olmuþ tokenlarý validate etmez
     ValidateAudience = false
   };
 });
