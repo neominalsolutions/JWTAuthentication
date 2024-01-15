@@ -1,0 +1,24 @@
+﻿
+@*@model Tuple<LoginInputModel,TokenReponseModel>*@
+
+@model LoginInputModel
+
+@* CSRF Client Side Request Forgery *@
+
+<h1>
+  Login Form
+</h1>
+
+@* Tag Helpers yazım şekli *@
+
+<form method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
+  <div asp-validation-summary="All"></div>
+ 
+  <input asp-for="UserName" />
+  <span asp-validation-for="UserName"></span>
+  <br />
+  <input type="password" asp-for="Password" />
+  <span asp-validation-for="Password"></span>
+  <br />
+  <input type="submit" value="Login" />
+</form>
