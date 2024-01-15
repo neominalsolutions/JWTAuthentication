@@ -16,9 +16,8 @@ namespace JWTAuthentication.Services
       var descriptor = new SecurityTokenDescriptor
       {
         Subject = identity,
-        Expires = DateTime.UtcNow.AddHours(1),
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512),
-        Audience = "www.a.com",
+        Expires = DateTime.Now.AddHours(1),
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)
       };
 
       var token = tokenHandler.CreateToken(descriptor);
