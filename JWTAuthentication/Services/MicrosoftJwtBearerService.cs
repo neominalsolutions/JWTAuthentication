@@ -10,6 +10,8 @@ namespace JWTAuthentication.Services
   {
     public TokenResponse CreateAccessToken(ClaimsIdentity identity)
     {
+     
+
       var key = Encoding.ASCII.GetBytes(JwtSettings.SecretKey);
       var tokenHandler = new JwtSecurityTokenHandler();
       // Expire Date, Subject, Claims bilgileri SecurityTokenDescriptor descriptior sınıfı içerisinde tanımlanmıştır.
@@ -17,7 +19,8 @@ namespace JWTAuthentication.Services
       {
         Subject = identity,
         Expires = DateTime.Now.AddHours(1),
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512),
+        
       };
 
       var token = tokenHandler.CreateToken(descriptor);

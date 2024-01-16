@@ -15,6 +15,9 @@ namespace JWTAuthentication.Controllers
     [HttpGet]
     public IActionResult Protected()
     {
+
+      
+
       return Ok("Identity Protected");
     }
   }

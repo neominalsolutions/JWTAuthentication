@@ -26,13 +26,16 @@ builder.Services.AddAuthentication(x =>
 {
   opt.RequireHttpsMetadata = true;
   opt.SaveToken = true;
+  
   opt.TokenValidationParameters = new TokenValidationParameters
   {
     ValidateIssuer = false, // Bunu validate etmemeyi unutmuþuz.
     ValidateIssuerSigningKey = true,
     IssuerSigningKey = new SymmetricSecurityKey(key),
     ValidateLifetime = true, // 1 saat boyunca sadece validate et, expire olmuþ tokenlarý validate etmez
-    ValidateAudience = false
+    ValidateAudience = false,
+    NameClaimType = "Name",
+    RoleClaimType = "Role"
   };
 });
 

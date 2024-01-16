@@ -4,8 +4,10 @@ using JWTAuthentication.Features.Requests;
 using JWTAuthentication.Services;
 using JWTAuthentication.Services.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace JWTAuthentication.Features.Handlers
@@ -34,7 +36,8 @@ namespace JWTAuthentication.Features.Handlers
 
         if(passwordConfirmed)
         {
-          var identity = new ClaimsIdentity();
+          
+     
           ////identity.AddClaim(new Claim(ClaimTypes.Name, "akedas"));
 
           //identity.AddClaim(new Claim("Name", "akedas"));
@@ -47,19 +50,24 @@ namespace JWTAuthentication.Features.Handlers
           var adminRole = await roleManager.FindByNameAsync("admin");
           var roleClaims = await roleManager.GetClaimsAsync(adminRole);
 
+          var claims = new List<Claim>();
 
-          identity.AddClaim(new Claim("Name", user.UserName));
-          identity.AddClaim(new Claim("Role", stringRoles));
+
+          claims.Add(new Claim("Name", user.UserName));
+          claims.Add(new Claim("Role", stringRoles));
 
           foreach (var claim in userClaims)
           {
-            identity.AddClaim(new Claim(claim.Type, claim.Value));
+            claims.Add(new Claim(claim.Type, claim.Value));
           }
 
           foreach (var roleClaim in roleClaims)
           {
-            identity.AddClaim(new Claim(roleClaim.Type, roleClaim.Value));
+            claims.Add(new Claim(roleClaim.Type, roleClaim.Value));
           }
+
+          var identity = new ClaimsIdentity(claims,"Bearer","Name","Role");
+
 
           var tokenResponse = this.jwtService.CreateAccessToken(identity);
 
